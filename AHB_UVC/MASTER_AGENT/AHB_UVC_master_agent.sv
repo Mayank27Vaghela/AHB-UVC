@@ -14,6 +14,7 @@ class AHB_UVC_master_agent_c extends uvm_agent;
 	AHB_UVC_master_driver_c ahb_master_drv_h;
 	AHB_UVC_master_monitor_c ahb_master_mon_h;
   AHB_UVC_master_coverage_c  ahb_master_cov_h;
+  AHB_UVC_master_config_c ahb_master_cfg_h;
   // component constructor
   extern function new(string name = "AHB_UVC_master_agent_c", uvm_component parent);
 
@@ -46,8 +47,13 @@ endfunction : new
 function void AHB_UVC_master_agent_c::build_phase(uvm_phase phase);
   super.build_phase(phase);
   `uvm_info(get_type_name(), "build phase", UVM_HIGH)
-	ahb_master_seqr_h = AHB_UVC_master_sequencer_c::type_id::create("ahb_master_seqr_h", this);
-	ahb_master_drv_h = AHB_UVC_master_driver_c::type_id::create("ahb_master_drv_h", this);
+  if(!uvm_config_db#(AHB_UVC_master_config_c)::get(this,"","master_config",ahb_master_cfg_h))
+    `uvm_error(get_type_name(),"Not able to get master configuration");
+
+  if(ahb_master_cfg_h.is_active == UVM_ACTIVE)begin  
+	  ahb_master_seqr_h = AHB_UVC_master_sequencer_c::type_id::create("ahb_master_seqr_h", this);
+	  ahb_master_drv_h = AHB_UVC_master_driver_c::type_id::create("ahb_master_drv_h", this);
+  end
 	ahb_master_mon_h = AHB_UVC_master_monitor_c::type_id::create("ahb_master_mon_h", this);
 endfunction : build_phase
 
@@ -60,7 +66,9 @@ endfunction : build_phase
 function void AHB_UVC_master_agent_c::connect_phase(uvm_phase phase);
   super.connect_phase(phase);
   `uvm_info(get_type_name(), "connect phase", UVM_HIGH)
-	ahb_master_drv_h.seq_item_port.connect(ahb_master_seqr_h.seq_item_export);
+  if(ahb_master_cfg_h.is_active == UVM_ACTIVE)begin  
+	  ahb_master_drv_h.seq_item_port.connect(ahb_master_seqr_h.seq_item_export);
+  end
 	ahb_master_mon_h.item_collected_port.connect(ahb_master_cov_h.analysis_export);
 endfunction : connect_phase
 

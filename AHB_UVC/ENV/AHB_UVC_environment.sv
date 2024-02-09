@@ -12,6 +12,9 @@ class AHB_UVC_environment_c extends uvm_env;
 	// handles declaration
 	AHB_UVC_master_agent_c ahb_master_agent_h;
 	AHB_UVC_slave_agent_c ahb_slave_agent_h;
+  AHB_UVC_env_config_c  ahb_env_cfg_h;
+  AHB_UVC_master_config_c ahb_mstr_cfg_h;
+  AHB_UVC_slave_config_c ahb_slv_cfg_h;
 
   // component constructor
   extern function new(string name = "AHB_UVC_environment_c", uvm_component parent);
@@ -45,8 +48,20 @@ endfunction : new
 function void AHB_UVC_environment_c::build_phase(uvm_phase phase);
   super.build_phase(phase);
   `uvm_info(get_type_name(), "build phase", UVM_HIGH)
-	ahb_master_agent_h = AHB_UVC_master_agent_c::type_id::create("ahb_master_agent_h", this);
-	ahb_slave_agent_h = AHB_UVC_slave_agent_c::type_id::create("ahb_slave_agent_h", this);
+  if(!uvm_config_db#(AHB_UVC_env_config_c)::get(this,"","env_config",ahb_env_cfg_h))
+     `uvm_error(get_type_name(),"Not able to get env configuration");
+
+  if(ahb_env_cfg_h.mstr_slv_mode == MSTR)begin
+	  ahb_master_agent_h = AHB_UVC_master_agent_c::type_id::create("ahb_master_agent_h", this);
+	  ahb_mstr_cfg_h = AHB_UVC_master_config_c::type_id::create("ahb_mstr_cfg_h");
+    uvm_config_db#(AHB_UVC_master_config_c)::set(this,"*","master_config",ahb_mstr_cfg_h);
+  end
+
+  if(ahb_env_cfg_h.mstr_slv_mode == SLV)begin
+	  ahb_slave_agent_h = AHB_UVC_slave_agent_c::type_id::create("ahb_slave_agent_h", this);
+	  ahb_slv_cfg_h = AHB_UVC_slave_config_c::type_id::create("ahb_slv_cfg_h");
+    uvm_config_db#(AHB_UVC_slave_config_c)::set(this,"*","slave_config",ahb_slv_cfg_h);
+  end
 endfunction : build_phase
 
 //////////////////////////////////////////////////////////////////
