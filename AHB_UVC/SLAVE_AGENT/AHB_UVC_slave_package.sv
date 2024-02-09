@@ -8,6 +8,7 @@ package AHB_UVC_slave_package;
   `include "AHB_UVC_slave_transaction.sv" 
    
   /** Slave files*/
+  `include "AHB_UVC_slave_config.sv"
   `include "AHB_UVC_slave_sequencer.sv"
   `include "AHB_UVC_slave_driver.sv"
   `include "AHB_UVC_slave_monitor.sv"
