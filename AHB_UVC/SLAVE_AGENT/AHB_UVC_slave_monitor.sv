@@ -11,7 +11,7 @@ class AHB_UVC_slave_monitor_c extends uvm_monitor;
 
   // analysis port for connecting the slave coverage and slave memory
   uvm_analysis_port#(AHB_UVC_slave_transaction_c) item_collected_port;
-
+  virtual AHB_UVC_interface slv_vif;
   // component constructor
   extern function new(string name = "AHB_UVC_slave_monitor_c", uvm_component parent);
 
@@ -63,8 +63,28 @@ endfunction : connect_phase
 // Parameter Passed   : handle of class uvm_phase
 // Returned Parameter : none
 // Description        : post build/connect phase
-//////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
 task AHB_UVC_slave_monitor_c::run_phase(uvm_phase phase);
   super.run_phase(phase);
   `uvm_info(get_type_name(), "run phase", UVM_HIGH)
+
+
+  AHB_UVC_transaction_c ahb_trans;
+    
+  forever begin
+    fork 
+      forever begin
+        fork 
+          addr_phase();
+          data_phase();
+        join_any
+      end
+      begin
+        wait(!slv_vif.hresetn);
+      end
+    join_any
+    disable fork;
+  end
+  
 endtask : run_phase
