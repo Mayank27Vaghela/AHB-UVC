@@ -6,7 +6,7 @@
 // Developers   : 
 // -------------------------------------------------------------------------
 
-class AHB_UVC_slave_driver_c extends uvm_driver#(AHB_UVC_slave_transaction_c);
+class AHB_UVC_slave_driver_c extends uvm_driver#(AHB_UVC_transaction_c);
   `uvm_component_utils(AHB_UVC_slave_driver_c)    
 
   // component constructor

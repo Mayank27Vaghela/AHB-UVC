@@ -6,7 +6,7 @@
 // Developers   : 
 // -------------------------------------------------------------------------
 
-class AHB_UVC_master_coverage_c extends uvm_subscriber#(AHB_UVC_master_transaction_c);
+class AHB_UVC_master_coverage_c extends uvm_subscriber#(AHB_UVC_transaction_c);
   `uvm_component_utils(AHB_UVC_master_coverage_c)    
 
   // component constructor
@@ -22,7 +22,7 @@ class AHB_UVC_master_coverage_c extends uvm_subscriber#(AHB_UVC_master_transacti
   extern virtual task run_phase(uvm_phase phase); 
 
   // write method
-  extern virtual function void write(AHB_UVC_master_transaction_c t); 
+  extern virtual function void write(AHB_UVC_transaction_c t); 
 endclass : AHB_UVC_master_coverage_c
 
 //////////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ endtask : run_phase
 // Returned Parameter : none
 // Description        : write method of the master coverage
 //////////////////////////////////////////////////////////////////
-function void AHB_UVC_master_coverage_c::write(AHB_UVC_master_transaction_c t);
+function void AHB_UVC_master_coverage_c::write(AHB_UVC_transaction_c t);
   
     /** Sample method*/
     //if(spi_mstr_cfg_h.enable_cov)begin

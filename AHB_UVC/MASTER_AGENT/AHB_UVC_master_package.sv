@@ -7,10 +7,10 @@ package AHB_UVC_master_package;
 
   /** AHB defines files*/
   `include "AHB_UVC_defines.sv"
+  `include "AHB_UVC_common_defines.sv"
 
-  /** SRC transaction file*/
-  `include "AHB_UVC_master_transaction.sv" 
-   
+  `include "AHB_UVC_transaction.sv"  
+
   /** Agent configuration file*/
   `include "AHB_UVC_master_config.sv"
 

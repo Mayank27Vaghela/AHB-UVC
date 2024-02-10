@@ -5,8 +5,7 @@ package AHB_UVC_slave_package;
   import uvm_pkg::*;
   `include "uvm_macros.svh"
 
-  `include "AHB_UVC_slave_transaction.sv" 
-   
+  import AHB_UVC_master_package::AHB_UVC_transaction_c;
   /** Slave files*/
   `include "AHB_UVC_slave_config.sv"
   `include "AHB_UVC_slave_sequencer.sv"

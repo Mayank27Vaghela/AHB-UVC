@@ -54,7 +54,10 @@ function void AHB_UVC_master_agent_c::build_phase(uvm_phase phase);
 	  ahb_master_seqr_h = AHB_UVC_master_sequencer_c::type_id::create("ahb_master_seqr_h", this);
 	  ahb_master_drv_h = AHB_UVC_master_driver_c::type_id::create("ahb_master_drv_h", this);
   end
-	ahb_master_mon_h = AHB_UVC_master_monitor_c::type_id::create("ahb_master_mon_h", this);
+  if(ahb_master_cfg_h.mstr_coverage)begin
+	  ahb_master_cov_h = AHB_UVC_master_coverage_c::type_id::create("ahb_master_cov_h", this);
+	  ahb_master_mon_h = AHB_UVC_master_monitor_c::type_id::create("ahb_master_mon_h", this);
+  end
 endfunction : build_phase
 
 //////////////////////////////////////////////////////////////////
@@ -69,7 +72,9 @@ function void AHB_UVC_master_agent_c::connect_phase(uvm_phase phase);
   if(ahb_master_cfg_h.is_active == UVM_ACTIVE)begin  
 	  ahb_master_drv_h.seq_item_port.connect(ahb_master_seqr_h.seq_item_export);
   end
-	ahb_master_mon_h.item_collected_port.connect(ahb_master_cov_h.analysis_export);
+  if(ahb_master_cfg_h.mstr_coverage)begin
+	  ahb_master_mon_h.item_collected_port.connect(ahb_master_cov_h.analysis_export);
+  end
 endfunction : connect_phase
 
 //////////////////////////////////////////////////////////////////

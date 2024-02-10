@@ -56,7 +56,9 @@ function void AHB_UVC_slave_agent_c::build_phase(uvm_phase phase);
 	  ahb_slave_drv_h = AHB_UVC_slave_driver_c::type_id::create("ahb_slave_drv_h", this);
   end
 	ahb_slave_mon_h = AHB_UVC_slave_monitor_c::type_id::create("ahb_slave_mon_h", this);
-	ahb_slave_cov_h = AHB_UVC_slave_coverage_c::type_id::create("ahb_slave_cov_h", this);
+  if(ahb_slave_cfg_h.slv_coverage)begin
+	  ahb_slave_cov_h = AHB_UVC_slave_coverage_c::type_id::create("ahb_slave_cov_h", this);
+  end
 endfunction : build_phase
 
 //////////////////////////////////////////////////////////////////
@@ -71,7 +73,9 @@ function void AHB_UVC_slave_agent_c::connect_phase(uvm_phase phase);
   if(ahb_slave_cfg_h.is_active == UVM_ACTIVE)begin
 	  ahb_slave_drv_h.seq_item_port.connect(ahb_slave_seqr_h.seq_item_export);
   end
-  ahb_slave_mon_h.item_collected_port.connect(ahb_slave_cov_h.analysis_export);
+  if(ahb_slave_cfg_h.slv_coverage)begin
+    ahb_slave_mon_h.item_collected_port.connect(ahb_slave_cov_h.analysis_export);
+  end
 endfunction : connect_phase
 
 //////////////////////////////////////////////////////////////////

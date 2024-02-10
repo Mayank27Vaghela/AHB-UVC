@@ -6,20 +6,25 @@
 // Developers   : 
 // -------------------------------------------------------------------------
 
-
-//`include "AHB_UVC_package.sv"
+`timescale 10ns/1ps
+`include "AHB_UVC_defines.sv"
+`include "AHB_UVC_common_defines.sv"
+import AHB_UVC_package::*;
 `include "AHB_UVC_interface.sv"
 `include "AHB_UVC_checker.sv"
 module AHB_UVC_top;
 
 import uvm_pkg::*;
 `include "uvm_macros.svh"
-import AHB_UVC_package::*;
 	//interface handle declaration
-	AHB_UVC_interface vif();
+	AHB_UVC_interface uvc_if();
     
+  /*initial begin
+    assign uvc_if.Hready_in = uvc_if.Hready_out;
+  end*/
+
   initial begin
-	  uvm_config_db#(virtual AHB_UVC_interface)::set(null, "*", "vif", vif);
-    run_test();
+	  uvm_config_db#(virtual AHB_UVC_interface)::set(null, "*", "uvc_if", uvc_if);
+    run_test("AHB_UVC_base_test_c");
   end
 endmodule
