@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------- 
 // File name    : AHB_UVC_transaction.sv
 // Title        : AHB_UVC transaction class
-// Project      : AHB_UVC VIP
+// Project      : AHB_UVC 
 // Created On   : 2024-02-07
 // Developers   : 
 // -------------------------------------------------------------------------
@@ -10,14 +10,14 @@ class AHB_UVC_transaction_c extends uvm_sequence_item;
     `uvm_object_utils(AHB_UVC_transaction_c)
 
     // object constructor
-    extern function new(string str = "");
+    extern function new(string name = "AHB_UVC_transaction_c");
   
-    rand bit [(`ADDR_WIDTH -1):0] haddr;
+    rand bit [(`HADDR_WIDTH -1):0] haddr;
     rand hburst_enum          hburst_type;
     rand hsize_enum            hsize_type;
     rand bit                       hwrite;
-    rand bit [(`HWDATA -1):0 )]    hwdata[];
-    bit[(`HRDATA -1):0]            Hrdata;
+    rand bit [(`HWDATA_WIDTH -1):0]    hwdata[];
+    bit[(`HRDATA_WIDTH -1):0]            Hrdata;
     hresp_enum                 hresp_type;
     rand int                    incr_size;
 
@@ -41,7 +41,9 @@ class AHB_UVC_transaction_c extends uvm_sequence_item;
     constraint addr_boundary_limit{ haddr%1024 + ((1<<hsize_type)*beat_cnt) <= 1024; }
     
     //hsize should be less than data width
-    constraint hsize_less_than_data_width{ hsize_type <= $clog2(`DATA_WIDTH/8); }        
+
+    constraint hsize_less_than_data_width{ hsize_type <= $clog2(`HWDATA_WIDTH/8); }        
+
     
     constraint hburst_data_cnt{
                         if(hburst_type==SINGLE)                        hwdata.size==1;
@@ -65,6 +67,7 @@ endclass : AHB_UVC_transaction_c
 // Returned Parameter : none
 // Description        : component constructor
 //////////////////////////////////////////////////////////////////
-function AHB_UVC_transaction_c::new(string str = "");
-    super.new(str);
+
+function AHB_UVC_transaction_c::new(string name = "AHB_UVC_transaction_c");
+    super.new(name);
 endfunction : new

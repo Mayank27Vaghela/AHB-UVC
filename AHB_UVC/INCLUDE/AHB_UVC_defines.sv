@@ -6,5 +6,10 @@
 // Developers   : 
 // -------------------------------------------------------------------------
 
-`define ADDR_WIDTH 8
-
+`define HBURST_WIDTH 3
+`define HADDR_WIDTH 32
+`define HWDATA_WIDTH 32
+`define HRDATA_WIDTH 32
+`define HPROT_WIDTH 32
+`define HSIZE_WIDTH 32
+`define HTRANS_WIDTH 32

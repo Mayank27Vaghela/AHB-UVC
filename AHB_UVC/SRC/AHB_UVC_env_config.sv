@@ -16,7 +16,7 @@ class AHB_UVC_env_config_c extends uvm_object;
   extern function new(string name = "AHB_UVC_env_config_c");
 
   // UVC master slave mode switch
-  mode mstr_slv_mode = MSTR;
+  mode mstr_slv_mode = SLV;
 endclass : AHB_UVC_env_config_c
 
 //////////////////////////////////////////////////////////////////

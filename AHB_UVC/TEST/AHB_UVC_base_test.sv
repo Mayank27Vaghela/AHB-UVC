@@ -46,6 +46,7 @@ function void AHB_UVC_base_test_c::build_phase(uvm_phase phase);
   super.build_phase(phase);
   `uvm_info(get_type_name(), "build phase", UVM_HIGH)
 	ahb_env_h = AHB_UVC_environment_c::type_id::create("ahb_env_h", this);
+	ahb_env_cfg_h = AHB_UVC_env_config_c::type_id::create("ahb_env_cfg_h");
   uvm_config_db#(AHB_UVC_env_config_c)::set(this,"*","env_config",ahb_env_cfg_h);
 endfunction : build_phase
 

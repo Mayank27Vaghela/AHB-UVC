@@ -10,7 +10,7 @@ class AHB_UVC_master_monitor_c extends uvm_monitor;
     `uvm_component_utils(AHB_UVC_master_monitor_c)    
 
     // monitor for master coverage and scoreboard connection
-    uvm_analysis_port#(AHB_UVC_master_transaction_c) item_collected_port;
+    uvm_analysis_port#(AHB_UVC_transaction_c) item_collected_port;
 
     // component constructor
     extern function new(string name = "AHB_UVC_master_monitor_c", uvm_component parent);

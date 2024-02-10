@@ -9,20 +9,19 @@
 interface AHB_UVC_interface(input logic hclk , hresetn);
 
   // Master Signals 
-  logic [`ADDR_WIDTH - 1 : 0]Haddr;
-  logic [`HBURST_WIDTH -: 0]Hbrust;
+  logic [`HADDR_WIDTH  - 1 : 0]Haddr;
+  logic [`HBURST_WIDTH - 1: 0]Hburst;
   logic Hmastlock;
-  logic [HPROT_WIDTH - 1 : 0]Hprot;
-  logic [HSIZE_WIDTH - 1 : 0]Hsize;
-  logic [HTRANS_WIDTH -1 : 0]Htrans;
-  logic [HWDATA_WIDTH - : 0]Hwdata;
+  logic [`HPROT_WIDTH  - 1 : 0]Hprot;
+  logic [`HSIZE_WIDTH  - 1 : 0]Hsize;
+  logic [`HTRANS_WIDTH - 1 : 0]Htrans;
+  logic [`HWDATA_WIDTH - 1 : 0]Hwdata;
   logic Hwrite;
   
 
   //slave signals 
-  logic [HRDATA_WIDTH -1 : 0]Hrdata;
-  logic Hready;
+  logic [`HRDATA_WIDTH -1 : 0]Hrdata;
+  logic Hready_in;
+  logic Hready_out;
   logic Hresp;
-
-
 endinterface : AHB_UVC_interface
