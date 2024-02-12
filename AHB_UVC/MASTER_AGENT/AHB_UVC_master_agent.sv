@@ -56,8 +56,8 @@ function void AHB_UVC_master_agent_c::build_phase(uvm_phase phase);
   end
   if(ahb_master_cfg_h.mstr_coverage)begin
 	  ahb_master_cov_h = AHB_UVC_master_coverage_c::type_id::create("ahb_master_cov_h", this);
-	  ahb_master_mon_h = AHB_UVC_master_monitor_c::type_id::create("ahb_master_mon_h", this);
   end
+  ahb_master_mon_h = AHB_UVC_master_monitor_c::type_id::create("ahb_master_mon_h", this);
 endfunction : build_phase
 
 //////////////////////////////////////////////////////////////////

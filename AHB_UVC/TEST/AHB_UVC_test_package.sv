@@ -13,6 +13,7 @@ package AHB_UVC_test_package;
 
   /** Testcases*/  
   `include "AHB_UVC_base_test.sv"
+  `include "AHB_UVC_sanity_test.sv"
 
 endpackage : AHB_UVC_test_package
 `endif /** AHB_UVC_TEST_PKG*/

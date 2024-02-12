@@ -55,10 +55,10 @@ function void AHB_UVC_slave_agent_c::build_phase(uvm_phase phase);
 	  ahb_slave_seqr_h = AHB_UVC_slave_sequencer_c::type_id::create("ahb_slave_seqr_h", this);
 	  ahb_slave_drv_h = AHB_UVC_slave_driver_c::type_id::create("ahb_slave_drv_h", this);
   end
-	ahb_slave_mon_h = AHB_UVC_slave_monitor_c::type_id::create("ahb_slave_mon_h", this);
   if(ahb_slave_cfg_h.slv_coverage)begin
 	  ahb_slave_cov_h = AHB_UVC_slave_coverage_c::type_id::create("ahb_slave_cov_h", this);
   end
+	ahb_slave_mon_h = AHB_UVC_slave_monitor_c::type_id::create("ahb_slave_mon_h", this);
 endfunction : build_phase
 
 //////////////////////////////////////////////////////////////////
