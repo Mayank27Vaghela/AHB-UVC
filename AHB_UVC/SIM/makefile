@@ -16,8 +16,8 @@ comp:
 
 #To run the simulation in questasim
 sim: comp 
-	vsim -assertdebug  $(TOP_N) 
+	vsim -assertdebug  $(TOP_N) -do "do runsim.do" +UVM_TESTNAME=AHB_UVC_sanity_test
 	
 #To run the simulation in command prompt
 sim_c: comp
-	vsim $(TOP_N) -c -do "run -all; exit"
+	vsim $(TOP_N) -c -do "do runsim.do" +UVM_TESTNAME=AHB_UVC_sanity_test

@@ -13,6 +13,8 @@ package AHB_UVC_seq_package;
   `include "AHB_UVC_master_base_sequence.sv"
   `include "AHB_UVC_slave_base_sequence.sv"
 
+  /** Other sequences*/
+  `include "AHB_UVC_master_wr_seq.sv"
 endpackage : AHB_UVC_seq_package
 `endif /** AHB_UVC_SEQ_PKG*/
 
