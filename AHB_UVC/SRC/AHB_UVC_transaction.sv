@@ -41,7 +41,9 @@ class AHB_UVC_transaction_c extends uvm_sequence_item;
     constraint addr_boundary_limit{ haddr%1024 + ((1<<hsize_type)*beat_cnt) <= 1024; }
     
     //hsize should be less than data width
+
     constraint hsize_less_than_data_width{ hsize_type <= $clog2(`HWDATA_WIDTH/8); }        
+
     
     constraint hburst_data_cnt{
                         if(hburst_type==SINGLE)                        hwdata.size==1;
@@ -65,6 +67,7 @@ endclass : AHB_UVC_transaction_c
 // Returned Parameter : none
 // Description        : component constructor
 //////////////////////////////////////////////////////////////////
+
 function AHB_UVC_transaction_c::new(string name = "AHB_UVC_transaction_c");
     super.new(name);
 endfunction : new
