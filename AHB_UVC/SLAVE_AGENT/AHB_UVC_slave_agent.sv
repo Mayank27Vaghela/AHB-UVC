@@ -15,6 +15,7 @@ class AHB_UVC_slave_agent_c extends uvm_agent;
 	AHB_UVC_slave_monitor_c ahb_slave_mon_h;
   AHB_UVC_slave_coverage_c ahb_slave_cov_h;
   AHB_UVC_slave_config_c ahb_slave_cfg_h;
+  AHB_UVC_slave_memory ahb_slave_mem_h;
 
   // component constructor
   extern function new(string name = "AHB_UVC_slave_agent_c", uvm_component parent);
@@ -72,6 +73,7 @@ function void AHB_UVC_slave_agent_c::connect_phase(uvm_phase phase);
 	  ahb_slave_drv_h.seq_item_port.connect(ahb_slave_seqr_h.seq_item_export);
   end
   ahb_slave_mon_h.item_collected_port.connect(ahb_slave_cov_h.analysis_export);
+  ahb_slave_mon_h.mon_ap_mem.connect(ahb_slave_mem_h.item_export);
 endfunction : connect_phase
 
 //////////////////////////////////////////////////////////////////
